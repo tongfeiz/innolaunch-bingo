@@ -29,7 +29,7 @@
       ? Math.min(52, Math.round(window.innerHeight * 0.075))
       : isDesktop
         ? Math.min(44, Math.round(window.innerHeight * 0.065))
-        : Math.min(38, Math.round(window.innerHeight * 0.06), Math.round(window.innerWidth * 0.11));
+        : Math.min(280, Math.round(window.innerWidth * 0.14));
     brandH1.style.fontSize = size + "px";
 
     while (size < max) {
@@ -47,10 +47,6 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(fitBrandTitle, 80);
   });
-
-  document.addEventListener("touchmove", function (e) {
-    if (!e.target.closest(".sheet")) e.preventDefault();
-  }, { passive: false });
 
   function pad2(n) {
     return String(n).padStart(2, "0");

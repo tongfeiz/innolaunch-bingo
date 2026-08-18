@@ -76,8 +76,6 @@
 
     for (let r = 0; r < SIZE; r++) {
       const complete = filledMap().slice(r * SIZE, r * SIZE + SIZE).every(Boolean);
-      const label = boardEl.querySelector('[data-row-label="' + r + '"]');
-      if (label) label.classList.toggle("row-done", complete);
       for (let c = 0; c < SIZE; c++) {
         const cell = boardEl.querySelector('[data-index="' + (r * SIZE + c) + '"]');
         if (cell) cell.classList.toggle("row-done", complete);
@@ -106,27 +104,8 @@
 
   function buildBoard() {
     const frag = document.createDocumentFragment();
-    const corner = document.createElement("div");
-    corner.className = "axis";
-    corner.textContent = "+";
-    frag.append(corner);
-
-    ["A", "B", "C", "D"].forEach(function (col) {
-      const el = document.createElement("div");
-      el.className = "axis";
-      el.textContent = col;
-      frag.append(el);
-    });
 
     SQUARES.forEach(function (sq, i) {
-      if (i % SIZE === 0) {
-        const row = document.createElement("div");
-        row.className = "axis";
-        row.dataset.rowLabel = String(Math.floor(i / SIZE));
-        row.textContent = String(Math.floor(i / SIZE) + 1);
-        frag.append(row);
-      }
-
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "cell";

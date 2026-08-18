@@ -93,8 +93,7 @@ function exportBoard(opts) {
   return document.fonts.ready.then(function () {
     const W = 1400;
     const pad = 72;
-    const label = 36;
-    const inner = W - pad * 2 - label;
+    const inner = W - pad * 2;
     const cell = inner / SIZE;
 
     const measureCtx = document.createElement("canvas").getContext("2d");
@@ -105,7 +104,7 @@ function exportBoard(opts) {
     const headerH = titleSize + 80;
     const footerH = 180;
     const boardTop = pad + headerH;
-    const H = boardTop + label + inner + footerH;
+    const H = boardTop + inner + footerH;
 
     const canvas = document.createElement("canvas");
     canvas.width = W;
@@ -161,21 +160,8 @@ function exportBoard(opts) {
     ctx.fillText("PTS " + pts + "   SQ " + score.squares + "/16   ROW " + score.rows + "/4", W - pad, pad + 10);
     ctx.textAlign = "left";
 
-    const gx = pad + label;
-    const gy = boardTop + label;
-
-    ctx.font = "600 16px 'IBM Plex Mono', monospace";
-    ctx.fillStyle = INK;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    for (let c = 0; c < SIZE; c++) {
-      ctx.fillText(COLS[c], gx + cell * c + cell / 2, gy - 20);
-    }
-    for (let r = 0; r < SIZE; r++) {
-      ctx.fillText(String(r + 1), gx - 20, gy + cell * r + cell / 2);
-    }
-    ctx.textAlign = "left";
-    ctx.textBaseline = "alphabetic";
+    const gx = pad;
+    const gy = boardTop;
 
     ctx.fillStyle = PAPER;
     ctx.fillRect(gx, gy, inner, inner);

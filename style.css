@@ -98,9 +98,9 @@ body::after {
 .app {
   position: relative;
   z-index: 3;
-  width: min(920px, 100%);
+  width: 100%;
   margin: 0 auto;
-  padding: calc(28px + env(safe-area-inset-top)) 14px calc(40px + env(safe-area-inset-bottom));
+  padding: calc(28px + env(safe-area-inset-top)) 12px calc(40px + env(safe-area-inset-bottom));
 }
 
 .mono {
@@ -212,34 +212,19 @@ body::after {
 
 .board-shell {
   position: relative;
+  width: 100%;
   background: var(--paper);
   border: 3px solid var(--ink);
   box-shadow: 6px 6px 0 var(--ink);
-  margin: 4px 4px 8px;
+  margin: 0 0 8px;
 }
 
 .board {
   display: grid;
-  grid-template-columns: 22px repeat(4, 1fr);
-  grid-template-rows: 22px repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
   user-select: none;
-}
-
-.axis {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  background: var(--bg);
-}
-
-.axis.row-done {
-  background: var(--blue);
-  color: var(--paper);
 }
 
 .cell {
@@ -491,36 +476,16 @@ body::after {
   .app {
     padding-top: 28px;
     padding-bottom: 48px;
-  }
-
-  .layout {
-    display: grid;
-    grid-template-columns: 160px minmax(0, 1fr);
-    gap: 22px;
-    align-items: start;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .rail {
-    display: block;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-    line-height: 1.55;
-    color: var(--muted);
-    padding-top: 86px;
-    white-space: pre;
+    display: none;
   }
 
   .prompt {
     -webkit-line-clamp: 8;
-  }
-}
-
-@media (max-width: 759px) {
-  .rail {
-    display: none;
   }
 }
 

@@ -9,7 +9,6 @@
   const sheetEl = document.querySelector("#sheet");
   const sheetTitle = document.querySelector("#sheet-title");
   const sheetCopy = document.querySelector("#sheet-copy");
-  const railEl = document.querySelector(".rail");
   const hintEl = document.querySelector("#hint");
   const brandH1 = document.querySelector(".brand h1");
 
@@ -17,11 +16,6 @@
   const blobs = Array(SIZE * SIZE).fill(null);
   let pending = null;
   let toastTimer = 0;
-
-  const ASCII = "+ SYS.READY\n+ GRID 04x04\n+ DITHER ON\n+ ASCII HUD\n|\n> TAP SQ\n> FIT PHOTO\n> AUTOSAVE\n|\n++ PTS = SQ + ROW*5\n++ EXPORT PNG\n|\n" +
-    new Date().toISOString().slice(0, 10) + "\ninnod.bingo";
-
-  railEl.textContent = ASCII;
 
   function fitBrandTitle() {
     if (!brandH1) return;

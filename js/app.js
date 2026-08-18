@@ -9,7 +9,7 @@
   const sheetEl = document.querySelector("#sheet");
   const sheetTitle = document.querySelector("#sheet-title");
   const sheetCopy = document.querySelector("#sheet-copy");
-  const brandH1 = document.querySelector(".brand-title");
+  const brandH1 = document.querySelector(".brand h1");
 
   const urls = Array(SIZE * SIZE).fill(null);
   const blobs = Array(SIZE * SIZE).fill(null);
@@ -23,7 +23,10 @@
     if (!maxWidth) return;
 
     let size = 12;
-    const max = 280;
+    const isDesktop = window.innerWidth >= 760;
+    const max = isDesktop
+      ? Math.min(36, Math.round(window.innerHeight * 0.055))
+      : Math.min(280, Math.round(window.innerWidth * 0.14));
     brandH1.style.fontSize = size + "px";
 
     while (size < max) {
@@ -246,7 +249,7 @@
       }
     }).finally(function () {
       btn.disabled = false;
-      btn.textContent = "Export";
+      btn.textContent = "Export board";
     });
   });
 

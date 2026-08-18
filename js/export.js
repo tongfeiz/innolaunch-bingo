@@ -186,7 +186,7 @@ function exportBoard(opts) {
         ctx.fillStyle = INK;
         ctx.font = "600 16px 'IBM Plex Mono', monospace";
         ctx.fillText("INSERT YOUR PICTURES ON THE SQUARES YOU COMPLETED.", pad, gy + inner + 56);
-        ctx.fillText("EACH SQUARE IS 1 POINT.  EACH ROW OR COLUMN COMPLETED IS 5 POINTS.", pad, gy + inner + 82);
+        ctx.fillText("SQUARE = 1 POINT, ROW/COLUMN = 5 POINTS", pad, gy + inner + 82);
 
         ctx.fillStyle = BLUE;
         ctx.fillRect(pad, gy + inner + 110, 12, 12);

@@ -104,8 +104,8 @@
       img.hidden = false;
     } else {
       cell.classList.remove("filled");
-      img.removeAttribute("src");
       img.hidden = true;
+      img.removeAttribute("src");
     }
     renderScore();
   }
@@ -121,6 +121,10 @@
       btn.setAttribute("role", "gridcell");
       btn.setAttribute("aria-label", coord(i) + ". " + (sq.tag ? "[" + sq.tag + "] " : "") + sq.text);
 
+      const row = Math.floor(i / SIZE);
+      const col = i % SIZE;
+      btn.style.setProperty("--stagger", String(row + col));
+
       btn.innerHTML =
         '<img class="photo" alt="" hidden />' +
         '<div class="cell-body">' +
@@ -132,6 +136,10 @@
     });
 
     boardEl.append(frag);
+    boardEl.classList.add("is-intro");
+    setTimeout(function () {
+      boardEl.classList.remove("is-intro");
+    }, 600);
   }
 
   function openPicker(index) {

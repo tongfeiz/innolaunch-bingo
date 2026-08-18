@@ -8,6 +8,8 @@
   --sans: "Archivo", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --shadow: 4px 4px 0 var(--ink);
+  --intro-stagger: 20ms;
+  --intro-board: 50ms;
 }
 
 * {
@@ -109,6 +111,8 @@ main {
 .topbar {
   margin-bottom: 10px;
   font-size: clamp(10px, 2.8vw, 13px);
+  opacity: 0;
+  animation: fade-in 0.18s steps(2) forwards;
 }
 
 .topbar > div:first-child {
@@ -140,6 +144,9 @@ main {
 .brand {
   margin: 4px 0 14px;
   width: 100%;
+  opacity: 0;
+  animation: fade-in 0.18s steps(2) forwards;
+  animation-delay: 20ms;
 }
 
 .brand h1 {
@@ -161,16 +168,29 @@ main {
 
 .stats {
   border: 2px solid var(--ink);
-  background: var(--paper);
+  background: var(--blue);
   box-shadow: var(--shadow);
   margin-bottom: 16px;
   width: 100%;
+  animation: panel-enter 0.22s steps(3) forwards;
+  animation-delay: 35ms;
 }
 
 .stat {
   flex: 1 1 0;
   padding: 10px 12px;
   min-width: 0;
+  opacity: 0;
+  animation: fade-in 0.12s steps(2) forwards;
+  animation-delay: calc(35ms + 80ms);
+}
+
+.stat:nth-child(2) {
+  animation-delay: calc(35ms + 90ms);
+}
+
+.stat:nth-child(3) {
+  animation-delay: calc(35ms + 100ms);
 }
 
 .stat + .stat {
@@ -198,11 +218,13 @@ main {
 .board-shell {
   position: relative;
   width: 100%;
-  background: var(--paper);
+  background: var(--blue);
   border: 3px solid var(--ink);
   box-shadow: 6px 6px 0 var(--ink);
   margin: 0 0 8px;
   min-height: 0;
+  animation: shell-enter 0.22s steps(3) forwards;
+  animation-delay: var(--intro-board);
 }
 
 .board {
@@ -220,7 +242,8 @@ main {
   aspect-ratio: 1;
   border: 1px solid var(--ink);
   border-radius: 0;
-  background: var(--paper);
+  background: var(--blue);
+  color: var(--paper);
   padding: 0;
   text-align: left;
   cursor: pointer;
@@ -229,6 +252,109 @@ main {
   min-height: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  animation: cell-enter 0.22s steps(3) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger));
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panel-enter {
+  0%,
+  30% {
+    background-color: var(--blue);
+    color: var(--paper);
+  }
+
+  100% {
+    background-color: var(--paper);
+    color: var(--ink);
+  }
+}
+
+@keyframes shell-enter {
+  0%,
+  30% {
+    background-color: var(--blue);
+  }
+
+  100% {
+    background-color: var(--paper);
+  }
+}
+
+@keyframes cell-enter {
+  0%,
+  30% {
+    background-color: var(--blue);
+    color: var(--paper);
+  }
+
+  100% {
+    background-color: var(--paper);
+    color: var(--ink);
+  }
+}
+
+.cell .cell-body {
+  opacity: 0;
+  animation: cell-body-enter 0.12s steps(2) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 90ms);
+}
+
+@keyframes cell-body-enter {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar,
+  .brand,
+  .stats,
+  .stat,
+  .board-shell,
+  .footer {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .stats,
+  .board-shell {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .cell {
+    animation: none;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .cell .cell-body {
+    animation: none;
+    opacity: 1;
+  }
+
+  .board.is-intro .cell.filled .photo,
+  .board.is-intro .cell.filled::after {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .cell:focus-visible {
@@ -300,6 +426,33 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: none;
+}
+
+.cell.filled .photo {
+  display: block;
+}
+
+.board.is-intro .cell.filled .photo {
+  opacity: 0;
+  animation: cell-photo-enter 0.12s steps(2) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 160ms);
+}
+
+.board.is-intro .cell.filled::after {
+  opacity: 0;
+  animation: cell-photo-enter 0.1s steps(2) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 180ms);
+}
+
+@keyframes cell-photo-enter {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .cell.filled::before {
@@ -350,6 +503,9 @@ main {
 
 .footer {
   flex-shrink: 0;
+  opacity: 0;
+  animation: fade-in 0.18s steps(2) forwards;
+  animation-delay: 320ms;
 }
 
 .btn {
@@ -526,35 +682,24 @@ main {
     flex: 1 1 0;
     min-height: 0;
     margin-bottom: 0;
-    border-width: 2px;
-    box-shadow: 4px 4px 0 var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
     container-type: size;
+    overflow: hidden;
   }
 
   .board {
     width: min(100cqw, 100cqh);
-    height: min(100cqw, 100cqh);
+    aspect-ratio: 1;
+    height: auto;
     max-width: 100%;
     max-height: 100%;
-  }
-
-  .cell {
-    aspect-ratio: auto;
-    height: 100%;
   }
 
   .cell-body {
     padding: 8px 6px 6px;
     gap: 5px;
-  }
-
-  .prompt {
-    font-size: clamp(11px, 1.75cqmin, 15px);
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
   }
 
   .tag {
@@ -603,14 +748,6 @@ main {
     font-size: 12px;
   }
 
-  .prompt {
-    font-size: clamp(12px, 1.85cqmin, 16px);
-  }
-
-  .tag {
-    font-size: 10px;
-  }
-
   .rules {
     font-size: 12px;
   }
@@ -646,12 +783,6 @@ main {
 
   .rules {
     font-size: 10px;
-  }
-
-  .prompt {
-    font-size: clamp(10px, 1.5cqmin, 13px);
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
   }
 }
 

@@ -24,9 +24,12 @@
 
     let size = 12;
     const isDesktop = window.innerWidth >= 760;
-    const max = isDesktop
-      ? Math.min(36, Math.round(window.innerHeight * 0.055))
-      : Math.min(280, Math.round(window.innerWidth * 0.14));
+    const isWide = window.innerWidth >= 1200;
+    const max = isWide
+      ? Math.min(52, Math.round(window.innerHeight * 0.075))
+      : isDesktop
+        ? Math.min(44, Math.round(window.innerHeight * 0.065))
+        : Math.min(280, Math.round(window.innerWidth * 0.14));
     brandH1.style.fontSize = size + "px";
 
     while (size < max) {

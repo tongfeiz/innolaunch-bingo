@@ -102,6 +102,9 @@
       cell.classList.add("filled");
       img.src = urls[index];
       img.hidden = false;
+      if (boardEl.classList.contains("is-intro") && useJsIntro()) {
+        img.style.opacity = "0";
+      }
     } else {
       cell.classList.remove("filled");
       img.hidden = true;
@@ -136,18 +139,72 @@
     });
 
     boardEl.append(frag);
-    boardEl.classList.add("is-intro");
-    setTimeout(finishIntro, 450);
+    startIntro();
+  }
+
+  function useJsIntro() {
+    return window.matchMedia("(max-width: 759px)").matches;
+  }
+
+  function cellRevealDelay(index) {
+    var row = Math.floor(index / SIZE);
+    var col = index % SIZE;
+    return 50 + (row + col) * 20 + 180;
+  }
+
+  function resetCells() {
+    boardEl.querySelectorAll(".cell").forEach(function (cell) {
+      cell.style.backgroundColor = "";
+      cell.style.animation = "none";
+      var body = cell.querySelector(".cell-body");
+      if (body) body.style.opacity = "";
+      var photo = cell.querySelector(".photo");
+      if (photo) photo.style.opacity = "";
+    });
   }
 
   function finishIntro() {
     boardEl.classList.remove("is-intro");
-    boardEl.querySelectorAll(".cell:not(.filled) .cell-body").forEach(function (body) {
-      body.style.opacity = "";
+    resetCells();
+  }
+
+  function revealCell(cell) {
+    cell.style.backgroundColor = "";
+    var body = cell.querySelector(".cell-body");
+    if (body && !cell.classList.contains("filled")) body.style.opacity = "1";
+    var photo = cell.querySelector(".photo");
+    if (photo && cell.classList.contains("filled") && !photo.hidden) photo.style.opacity = "1";
+  }
+
+  function runMobileIntro() {
+    boardEl.classList.add("is-intro");
+    var maxEnd = 0;
+
+    boardEl.querySelectorAll(".cell").forEach(function (cell) {
+      var index = Number(cell.dataset.index);
+      var delay = cellRevealDelay(index);
+      if (delay > maxEnd) maxEnd = delay;
+
+      cell.style.backgroundColor = "#0047FF";
+      var body = cell.querySelector(".cell-body");
+      var photo = cell.querySelector(".photo");
+      if (!cell.classList.contains("filled") && body) body.style.opacity = "0";
+      if (cell.classList.contains("filled") && photo && !photo.hidden) photo.style.opacity = "0";
+
+      setTimeout(function () {
+        revealCell(cell);
+      }, delay);
     });
-    boardEl.querySelectorAll(".cell.filled .photo").forEach(function (photo) {
-      photo.style.opacity = "";
-    });
+
+    setTimeout(finishIntro, maxEnd + 50);
+  }
+
+  function startIntro() {
+    if (useJsIntro()) runMobileIntro();
+    else {
+      boardEl.classList.add("is-intro");
+      setTimeout(finishIntro, 450);
+    }
   }
 
   function openPicker(index) {
@@ -301,4 +358,8 @@
   }
 
   init();
+
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) finishIntro();
+  });
 })();

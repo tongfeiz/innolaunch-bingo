@@ -261,6 +261,21 @@ main {
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger));
 }
 
+@media (max-width: 759px) {
+  .board.is-intro .cell {
+    animation: none;
+  }
+
+  .board.is-intro .cell:not(.filled) .cell-body {
+    animation: none;
+  }
+
+  .board.is-intro .cell.filled .photo,
+  .board.is-intro .cell.filled::after {
+    animation: none;
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

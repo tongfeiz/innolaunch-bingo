@@ -305,19 +305,22 @@ document.querySelector("#export").addEventListener("click", async () => {
   }
 });
 
-try {
-  const saved = await loadAll();
-  for (const rec of saved) {
-    if (rec?.blob && rec.id >= 0 && rec.id < SIZE * SIZE) {
-      setPhoto(rec.id, rec.blob);
+async function init() {
+  try {
+    const saved = await loadAll();
+    for (const rec of saved) {
+      if (rec?.blob && rec.id >= 0 && rec.id < SIZE * SIZE) {
+        setPhoto(rec.id, rec.blob);
+      }
     }
+    if (saved.length) toast("progress restored");
+  } catch (err) {
+    console.error(err);
+    toast("Storage unavailable");
   }
-  if (saved.length) toast("progress restored");
-} catch (err) {
-  console.error(err);
-  toast("Storage unavailable");
+
+  renderScore();
+  document.fonts.ready.then(fitBrandTitle);
 }
 
-renderScore();
-
-document.fonts.ready.then(fitBrandTitle);
+init();

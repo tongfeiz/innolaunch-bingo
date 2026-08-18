@@ -1,7 +1,7 @@
-export const COLS = ["A", "B", "C", "D"];
-export const SIZE = 4;
+const COLS = ["A", "B", "C", "D"];
+const SIZE = 4;
 
-export const SQUARES = [
+const SQUARES = [
   { tag: null, text: "Snipe an InnoMember on Campus and send to #irl" },
   { tag: "RETREAT", text: "Take a pic of a meal w/ your retreat car" },
   { tag: null, text: "Do a coffee chat w/ someone in your hex class" },
@@ -20,11 +20,11 @@ export const SQUARES = [
   { tag: null, text: "Take a pic w/ a Design Team GM" },
 ];
 
-export function coord(index) {
-  return `${COLS[index % SIZE]}${Math.floor(index / SIZE) + 1}`;
+function coord(index) {
+  return COLS[index % SIZE] + (Math.floor(index / SIZE) + 1);
 }
 
-export function scoreFromFilled(filled) {
+function scoreFromFilled(filled) {
   const squares = filled.filter(Boolean).length;
   let rows = 0;
   for (let r = 0; r < SIZE; r++) {

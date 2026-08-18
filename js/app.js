@@ -9,7 +9,6 @@
   const sheetEl = document.querySelector("#sheet");
   const sheetTitle = document.querySelector("#sheet-title");
   const sheetCopy = document.querySelector("#sheet-copy");
-  const hintEl = document.querySelector("#hint");
   const brandH1 = document.querySelector(".brand h1");
 
   const urls = Array(SIZE * SIZE).fill(null);
@@ -64,9 +63,6 @@
     ptsEl.textContent = pad2(score.total);
     sqEl.textContent = pad2(score.squares) + "/16";
     rowsEl.textContent = score.rows + "/4";
-    hintEl.textContent = score.squares === 16
-      ? ">> board complete  //  export when ready"
-      : ">> tap a square to upload a photo";
 
     for (let r = 0; r < SIZE; r++) {
       const complete = filledMap().slice(r * SIZE, r * SIZE + SIZE).every(Boolean);

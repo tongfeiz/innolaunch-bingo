@@ -9,7 +9,7 @@
   const sheetEl = document.querySelector("#sheet");
   const sheetTitle = document.querySelector("#sheet-title");
   const sheetCopy = document.querySelector("#sheet-copy");
-  const brandH1 = document.querySelector(".brand h1");
+  const brandH1 = document.querySelector(".brand-title");
 
   const urls = Array(SIZE * SIZE).fill(null);
   const blobs = Array(SIZE * SIZE).fill(null);
@@ -246,7 +246,7 @@
       }
     }).finally(function () {
       btn.disabled = false;
-      btn.textContent = "Export board";
+      btn.textContent = "Export";
     });
   });
 

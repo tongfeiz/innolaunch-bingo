@@ -28,43 +28,46 @@
 
     <div class="app">
       <main>
+        <header class="head">
           <div class="topbar mono">
             <div><span class="mark" aria-hidden="true"></span>#0047FF // F'26 // INNOD</div>
             <div>live<span class="blink">_</span></div>
           </div>
+          <div class="head-main">
+            <h1 class="brand-title">Innolaunch <em>Bingo</em></h1>
+            <section class="stats" aria-label="Score">
+              <div class="stat">
+                <b id="pts">00</b>
+                <span>pts</span>
+              </div>
+              <div class="stat">
+                <b id="sq">00/16</b>
+                <span>sq</span>
+              </div>
+              <div class="stat">
+                <b id="rows">0/4</b>
+                <span>row</span>
+              </div>
+            </section>
+          </div>
+        </header>
 
-          <header class="brand">
-            <h1>Innolaunch <em>Bingo</em></h1>
-          </header>
-
-          <section class="stats" aria-label="Score">
-            <div class="stat">
-              <b id="pts">00</b>
-              <span>points</span>
+        <div class="content">
+          <aside class="side">
+            <p class="rules">
+              Insert pics on completed squares.<br />
+              <strong>1 pt/sq · 5 pts/row</strong>
+            </p>
+            <div class="actions">
+              <button class="btn primary" id="export" type="button">Export</button>
+              <button class="btn ghost" id="reset" type="button">Reset</button>
             </div>
-            <div class="stat">
-              <b id="sq">00/16</b>
-              <span>squares</span>
-            </div>
-            <div class="stat">
-              <b id="rows">0/4</b>
-              <span>rows +5</span>
-            </div>
-          </section>
+          </aside>
 
           <div class="board-shell">
             <div class="board" id="board" role="grid" aria-label="InnoLaunch Bingo board"></div>
           </div>
-
-          <p class="rules">
-            Insert your pictures on the squares you completed.<br />
-            <strong>Each square is 1 point. Each row completed is 5 points.</strong>
-          </p>
-
-          <div class="actions">
-            <button class="btn primary" id="export" type="button">Export board</button>
-            <button class="btn ghost" id="reset" type="button">Reset</button>
-          </div>
+        </div>
       </main>
     </div>
 

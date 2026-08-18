@@ -170,11 +170,11 @@ main {
 
 .stats {
   border: 2px solid var(--ink);
-  background: var(--blue);
+  background: var(--paper);
   box-shadow: var(--shadow);
   margin-bottom: 16px;
   width: 100%;
-  animation: panel-enter 0.22s steps(3) forwards;
+  animation: panel-enter 0.22s steps(3) both;
   animation-delay: 35ms;
 }
 
@@ -220,12 +220,12 @@ main {
 .board-shell {
   position: relative;
   width: 100%;
-  background: var(--blue);
+  background: var(--paper);
   border: 3px solid var(--ink);
   box-shadow: 6px 6px 0 var(--ink);
   margin: 0 0 8px;
   min-height: 0;
-  animation: shell-enter 0.22s steps(3) forwards;
+  animation: shell-enter 0.22s steps(3) both;
   animation-delay: var(--intro-board);
 }
 
@@ -257,8 +257,7 @@ main {
 }
 
 .board.is-intro .cell {
-  background: var(--blue);
-  animation: cell-enter 0.22s steps(3) forwards;
+  animation: cell-enter 0.22s steps(3) both;
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger));
 }
 
@@ -311,7 +310,7 @@ main {
 
 .board.is-intro .cell:not(.filled) .cell-body {
   opacity: 0;
-  animation: cell-body-reveal 0.01s steps(1) forwards;
+  animation: cell-body-reveal 0.01s steps(1) both;
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
 }
 
@@ -433,13 +432,13 @@ main {
 
 .board.is-intro .cell.filled .photo {
   opacity: 0;
-  animation: cell-photo-enter 0.01s steps(1) forwards;
+  animation: cell-photo-enter 0.01s steps(1) both;
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
 }
 
 .board.is-intro .cell.filled::after {
   opacity: 0;
-  animation: cell-photo-enter 0.01s steps(1) forwards;
+  animation: cell-photo-enter 0.01s steps(1) both;
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
 }
 

@@ -137,18 +137,16 @@
 
     boardEl.append(frag);
     boardEl.classList.add("is-intro");
-    setTimeout(finishIntro, 750);
+    setTimeout(finishIntro, 450);
   }
 
   function finishIntro() {
     boardEl.classList.remove("is-intro");
-    boardEl.querySelectorAll(".cell").forEach(function (cell) {
-      cell.style.animation = "none";
-      cell.style.backgroundColor = "";
-      var body = cell.querySelector(".cell-body");
-      if (body) body.style.opacity = "";
-      var photo = cell.querySelector(".photo");
-      if (photo) photo.style.opacity = "";
+    boardEl.querySelectorAll(".cell:not(.filled) .cell-body").forEach(function (body) {
+      body.style.opacity = "";
+    });
+    boardEl.querySelectorAll(".cell.filled .photo").forEach(function (photo) {
+      photo.style.opacity = "";
     });
   }
 

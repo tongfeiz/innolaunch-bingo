@@ -101,8 +101,10 @@ function exportBoard(opts) {
     const titleFit = fitTitleSize(measureCtx, titleMax);
     const titleSize = titleFit.size;
     const titleSpacing = titleFit.spacing;
-    const headerH = titleSize + 80;
-    const footerH = 180;
+    const topMono = 22;
+    const markSize = topMono;
+    const headerH = titleSize + 88;
+    const footerH = 100;
     const boardTop = pad + headerH;
     const H = boardTop + inner + footerH;
 
@@ -136,29 +138,26 @@ function exportBoard(opts) {
     }
     ctx.restore();
 
+    const topRowY = pad + 4;
+    const topRowMid = topRowY + markSize / 2;
+
     ctx.fillStyle = BLUE;
-    ctx.fillRect(pad, pad + 8, 18, 18);
+    ctx.fillRect(pad, topRowY, markSize, markSize);
 
     ctx.fillStyle = INK;
-    ctx.font = "600 18px 'IBM Plex Mono', monospace";
+    ctx.font = "600 " + topMono + "px 'IBM Plex Mono', monospace";
+    ctx.textBaseline = "middle";
+    ctx.fillText("#0047FF  //  F'26  //  INNOD", pad + markSize + 12, topRowMid);
     ctx.textBaseline = "top";
-    ctx.fillText("#0047FF  //  F'26  //  INNOD", pad + 32, pad + 10);
 
     ctx.font = "800 " + titleSize + "px Archivo, sans-serif";
     ctx.letterSpacing = titleSpacing + "px";
     ctx.fillStyle = INK;
-    ctx.fillText("INNOLAUNCH ", pad, pad + 48);
+    ctx.fillText("INNOLAUNCH ", pad, pad + 52);
     const launchW = ctx.measureText("INNOLAUNCH ").width;
     ctx.fillStyle = BLUE;
-    ctx.fillText("BINGO", pad + launchW, pad + 48);
+    ctx.fillText("BINGO", pad + launchW, pad + 52);
     ctx.letterSpacing = "0px";
-
-    const pts = String(score.total).padStart(2, "0");
-    ctx.fillStyle = INK;
-    ctx.font = "600 18px 'IBM Plex Mono', monospace";
-    ctx.textAlign = "right";
-    ctx.fillText("PTS " + pts + "   SQ " + score.squares + "/16   LN " + score.lines + "/8", W - pad, pad + 10);
-    ctx.textAlign = "left";
 
     const gx = pad;
     const gy = boardTop;
@@ -183,15 +182,19 @@ function exportBoard(opts) {
           ctx.stroke();
         }
 
-        ctx.fillStyle = INK;
-        ctx.font = "600 16px 'IBM Plex Mono', monospace";
-        ctx.fillText("INSERT YOUR PICTURES ON THE SQUARES YOU COMPLETED.", pad, gy + inner + 56);
-        ctx.fillText("SQUARE = 1 POINT, ROW/COLUMN = 5 POINTS", pad, gy + inner + 82);
+        const pts = String(score.total).padStart(2, "0");
+        const totalMark = 18;
+        const footerY = gy + inner + 36;
+        const footerMid = footerY + totalMark / 2;
 
         ctx.fillStyle = BLUE;
-        ctx.fillRect(pad, gy + inner + 110, 12, 12);
+        ctx.fillRect(pad, footerY, totalMark, totalMark);
+
         ctx.fillStyle = INK;
-        ctx.fillText("TOTAL  " + pts + " PTS", pad + 24, gy + inner + 121);
+        ctx.font = "700 32px 'IBM Plex Mono', monospace";
+        ctx.textBaseline = "middle";
+        ctx.fillText("TOTAL  " + pts + " PTS", pad + totalMark + 14, footerMid);
+        ctx.textBaseline = "top";
 
         return new Promise(function (resolve, reject) {
           canvas.toBlob(function (blob) {
@@ -221,23 +224,36 @@ function exportBoard(opts) {
         }).then(function () { return drawSquares(i + 1); });
       }
 
+      ctx.fillStyle = PAPER;
+      ctx.fillRect(x, y, cell, cell);
+
       ctx.fillStyle = INK;
       ctx.font = "700 22px Archivo, sans-serif";
-      const lines = wrapText(ctx, sq.text, cell - 28);
-      const startY = y + 24;
-      for (let li = 0; li < Math.min(lines.length, 6); li++) {
-        ctx.fillText(lines[li], x + 12, startY + li * 26);
+      ctx.textBaseline = "top";
+      const padX = 14;
+      const padTop = 16;
+      const tagH = 22;
+      const tagGap = 10;
+      const textBottom = sq.tag ? y + cell - tagGap - tagH : y + cell - padTop;
+      const maxTextH = textBottom - (y + padTop);
+      const lineH = 26;
+      const maxLines = Math.max(1, Math.floor(maxTextH / lineH));
+      const lines = wrapText(ctx, sq.text, cell - padX * 2);
+      for (let li = 0; li < Math.min(lines.length, maxLines); li++) {
+        ctx.fillText(lines[li], x + padX, y + padTop + li * lineH);
       }
 
       if (sq.tag) {
-        ctx.fillStyle = BLUE;
         const tag = sq.tag;
         ctx.font = "700 12px 'IBM Plex Mono', monospace";
         const tw = ctx.measureText(tag).width + 16;
-        const tagY = y + cell - 28;
-        ctx.fillRect(x + 12, tagY, tw, 22);
+        const tagY = y + cell - tagGap - tagH;
+        ctx.fillStyle = BLUE;
+        ctx.fillRect(x + padX, tagY, tw, tagH);
         ctx.fillStyle = PAPER;
-        ctx.fillText(tag, x + 20, tagY + 16);
+        ctx.textBaseline = "middle";
+        ctx.fillText(tag, x + padX + 8, tagY + tagH / 2);
+        ctx.textBaseline = "top";
       }
 
       return drawSquares(i + 1);

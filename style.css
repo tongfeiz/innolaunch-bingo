@@ -110,7 +110,7 @@ main {
 
 .topbar {
   margin-bottom: 10px;
-  font-size: clamp(10px, 2.8vw, 13px);
+  font-size: clamp(11px, 2.9vw, 14px);
   opacity: 0;
   animation: fade-in 0.18s steps(2) forwards;
 }
@@ -120,15 +120,17 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .mark {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
+  display: block;
+  width: 13px;
+  height: 13px;
   background: var(--blue);
-  margin-right: 8px;
-  vertical-align: -1px;
+  flex-shrink: 0;
 }
 
 .blink {
@@ -243,7 +245,7 @@ main {
   border: 1px solid var(--ink);
   border-radius: 0;
   background: var(--blue);
-  color: var(--paper);
+  color: var(--ink);
   padding: 0;
   text-align: left;
   cursor: pointer;
@@ -296,29 +298,15 @@ main {
   0%,
   30% {
     background-color: var(--blue);
-    color: var(--paper);
   }
 
   100% {
     background-color: var(--paper);
-    color: var(--ink);
   }
 }
 
-.cell .cell-body {
-  opacity: 0;
-  animation: cell-body-enter 0.12s steps(2) forwards;
-  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 90ms);
-}
-
-@keyframes cell-body-enter {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+.board.is-intro .cell:not(.filled) .prompt {
+  color: var(--paper);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -345,11 +333,6 @@ main {
     color: var(--ink);
   }
 
-  .cell .cell-body {
-    animation: none;
-    opacity: 1;
-  }
-
   .board.is-intro .cell.filled .photo,
   .board.is-intro .cell.filled::after {
     animation: none;
@@ -365,6 +348,10 @@ main {
 .cell:not(.filled):hover,
 .cell:not(.filled):active {
   background: var(--blue);
+}
+
+.cell:not(.filled):hover .prompt,
+.cell:not(.filled):active .prompt {
   color: var(--paper);
 }
 
@@ -399,11 +386,14 @@ main {
   font-weight: 700;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  padding: 2px 5px 1px;
-  line-height: 1.2;
+  padding: 3px 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .prompt {
+  color: var(--ink);
   font-size: clamp(10px, 3vw, 14px);
   font-weight: 700;
   letter-spacing: -0.05em;
@@ -646,13 +636,13 @@ main {
 
   .topbar {
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 14px;
     flex-shrink: 0;
   }
 
   .mark {
-    width: 11px;
-    height: 11px;
+    width: 14px;
+    height: 14px;
   }
 
   .brand {
@@ -737,7 +727,7 @@ main {
   }
 
   .topbar {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .stat b {

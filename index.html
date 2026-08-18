@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#EFEDE6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="InnoLaunch Bingo" />
+    <meta
+      name="description"
+      content="InnoLaunch Bingo — tap squares, upload photos, keep score."
+    />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>InnoLaunch Bingo</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23EFEDE6'/%3E%3Crect x='1' y='1' width='6' height='6' fill='%230047FF'/%3E%3Crect x='9' y='1' width='6' height='6' fill='%230A0A0A'/%3E%3Crect x='1' y='9' width='6' height='6' fill='%230A0A0A'/%3E%3Crect x='9' y='9' width='6' height='6' fill='%230047FF'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <svg width="0" height="0" aria-hidden="true">
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+    </svg>
+    <div class="grid-bg"></div>
+    <div class="dither"></div>
+    <div class="noise"></div>
+
+    <div class="app">
+      <div class="layout">
+        <aside class="rail" aria-hidden="true"></aside>
+        <main>
+          <div class="topbar mono">
+            <div><span class="mark" aria-hidden="true"></span>#0047FF // F'26 // INNOD</div>
+            <div>live<span class="blink">_</span></div>
+          </div>
+
+          <header class="brand">
+            <h1>Innolaunch <em>Bingo</em></h1>
+          </header>
+
+          <section class="stats" aria-label="Score">
+            <div class="stat">
+              <b id="pts">00</b>
+              <span>points</span>
+            </div>
+            <div class="stat">
+              <b id="sq">00/16</b>
+              <span>squares</span>
+            </div>
+            <div class="stat">
+              <b id="rows">0/4</b>
+              <span>rows +5</span>
+            </div>
+          </section>
+
+          <p class="ascii-note" id="hint">&gt;&gt; tap a square to upload a photo</p>
+
+          <div class="board-shell">
+            <div class="board" id="board" role="grid" aria-label="InnoLaunch Bingo board"></div>
+          </div>
+
+          <p class="rules">
+            Insert your pictures on the squares you completed.<br />
+            <strong>Each square is 1 point. Each row completed is 5 points.</strong>
+          </p>
+
+          <div class="actions">
+            <button class="btn primary" id="export" type="button">Export board</button>
+            <button class="btn ghost" id="reset" type="button">Reset</button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden>
+      <h2 id="sheet-title">A1</h2>
+      <p id="sheet-copy">Replace or remove this square.</p>
+      <div class="sheet-actions">
+        <button class="btn primary" id="replace" type="button">Replace</button>
+        <button class="btn" id="remove" type="button">Remove</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <input id="file" type="file" accept="image/*" hidden />
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

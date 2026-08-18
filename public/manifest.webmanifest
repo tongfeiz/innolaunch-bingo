@@ -1,0 +1,9 @@
+{
+  "name": "InnoLaunch Bingo",
+  "short_name": "Bingo",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#EFEDE6",
+  "theme_color": "#0047FF",
+  "lang": "en"
+}

@@ -244,7 +244,7 @@ main {
   aspect-ratio: 1;
   border: 1px solid var(--ink);
   border-radius: 0;
-  background: var(--blue);
+  background: var(--paper);
   color: var(--ink);
   padding: 0;
   text-align: left;
@@ -254,6 +254,10 @@ main {
   min-height: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+.board.is-intro .cell {
+  background: var(--blue);
   animation: cell-enter 0.22s steps(3) forwards;
   animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger));
 }
@@ -368,11 +372,6 @@ main {
 .cell:not(.filled):active .tag {
   background: var(--ink);
   color: var(--paper);
-}
-
-.cell.row-done:not(.filled),
-.cell.col-done:not(.filled) {
-  background-image: linear-gradient(180deg, rgba(0, 71, 255, 0.08), transparent 40%);
 }
 
 .cell-body {

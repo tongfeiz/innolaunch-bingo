@@ -157,7 +157,7 @@ function exportBoard(opts) {
     ctx.fillStyle = INK;
     ctx.font = "600 18px 'IBM Plex Mono', monospace";
     ctx.textAlign = "right";
-    ctx.fillText("PTS " + pts + "   SQ " + score.squares + "/16   ROW " + score.rows + "/4", W - pad, pad + 10);
+    ctx.fillText("PTS " + pts + "   SQ " + score.squares + "/16   LN " + score.lines + "/8", W - pad, pad + 10);
     ctx.textAlign = "left";
 
     const gx = pad;
@@ -186,7 +186,7 @@ function exportBoard(opts) {
         ctx.fillStyle = INK;
         ctx.font = "600 16px 'IBM Plex Mono', monospace";
         ctx.fillText("INSERT YOUR PICTURES ON THE SQUARES YOU COMPLETED.", pad, gy + inner + 56);
-        ctx.fillText("EACH SQUARE IS 1 POINT.  EACH ROW COMPLETED IS 5 POINTS.", pad, gy + inner + 82);
+        ctx.fillText("EACH SQUARE IS 1 POINT.  EACH ROW OR COLUMN COMPLETED IS 5 POINTS.", pad, gy + inner + 82);
 
         ctx.fillStyle = BLUE;
         ctx.fillRect(pad, gy + inner + 110, 12, 12);

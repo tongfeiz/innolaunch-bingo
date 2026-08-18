@@ -69,13 +69,24 @@
     const score = scoreFromFilled(filledMap());
     ptsEl.textContent = pad2(score.total);
     sqEl.textContent = pad2(score.squares) + "/16";
-    rowsEl.textContent = score.rows + "/4";
+    rowsEl.textContent = score.lines + "/8";
 
+    const filled = filledMap();
     for (let r = 0; r < SIZE; r++) {
-      const complete = filledMap().slice(r * SIZE, r * SIZE + SIZE).every(Boolean);
+      const rowComplete = filled.slice(r * SIZE, r * SIZE + SIZE).every(Boolean);
       for (let c = 0; c < SIZE; c++) {
+        let colComplete = true;
+        for (let ri = 0; ri < SIZE; ri++) {
+          if (!filled[ri * SIZE + c]) {
+            colComplete = false;
+            break;
+          }
+        }
         const cell = boardEl.querySelector('[data-index="' + (r * SIZE + c) + '"]');
-        if (cell) cell.classList.toggle("row-done", complete);
+        if (cell) {
+          cell.classList.toggle("row-done", rowComplete);
+          cell.classList.toggle("col-done", colComplete);
+        }
       }
     }
   }

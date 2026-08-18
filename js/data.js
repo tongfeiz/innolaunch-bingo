@@ -26,10 +26,20 @@ function coord(index) {
 
 function scoreFromFilled(filled) {
   const squares = filled.filter(Boolean).length;
-  let rows = 0;
+  let lines = 0;
   for (let r = 0; r < SIZE; r++) {
     const start = r * SIZE;
-    if (filled.slice(start, start + SIZE).every(Boolean)) rows += 1;
+    if (filled.slice(start, start + SIZE).every(Boolean)) lines += 1;
   }
-  return { squares, rows, total: squares + rows * 5 };
+  for (let c = 0; c < SIZE; c++) {
+    let complete = true;
+    for (let r = 0; r < SIZE; r++) {
+      if (!filled[r * SIZE + c]) {
+        complete = false;
+        break;
+      }
+    }
+    if (complete) lines += 1;
+  }
+  return { squares, lines, total: squares + lines * 5 };
 }

@@ -18,7 +18,8 @@
 
   function fitBrandTitle() {
     if (!brandH1) return;
-    const maxWidth = brandH1.parentElement.clientWidth;
+    const container = brandH1.closest(".app");
+    const maxWidth = container ? container.clientWidth : brandH1.parentElement.clientWidth;
     if (!maxWidth) return;
 
     let size = 12;

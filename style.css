@@ -296,7 +296,7 @@ main {
 
 @keyframes cell-enter {
   0%,
-  30% {
+  55% {
     background-color: var(--blue);
   }
 
@@ -305,8 +305,16 @@ main {
   }
 }
 
-.board.is-intro .cell:not(.filled) .prompt {
-  color: var(--paper);
+.board.is-intro .cell:not(.filled) .cell-body {
+  opacity: 0;
+  animation: cell-body-reveal 0.01s steps(1) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
+}
+
+@keyframes cell-body-reveal {
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -333,6 +341,7 @@ main {
     color: var(--ink);
   }
 
+  .board.is-intro .cell:not(.filled) .cell-body,
   .board.is-intro .cell.filled .photo,
   .board.is-intro .cell.filled::after {
     animation: none;
@@ -425,14 +434,14 @@ main {
 
 .board.is-intro .cell.filled .photo {
   opacity: 0;
-  animation: cell-photo-enter 0.12s steps(2) forwards;
-  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 160ms);
+  animation: cell-photo-enter 0.01s steps(1) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
 }
 
 .board.is-intro .cell.filled::after {
   opacity: 0;
-  animation: cell-photo-enter 0.1s steps(2) forwards;
-  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 180ms);
+  animation: cell-photo-enter 0.01s steps(1) forwards;
+  animation-delay: calc(var(--intro-board) + var(--stagger, 0) * var(--intro-stagger) + 220ms);
 }
 
 @keyframes cell-photo-enter {
